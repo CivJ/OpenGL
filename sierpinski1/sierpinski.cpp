@@ -11,18 +11,18 @@ public:
 void myInit();
 void myDisplay();
 void myReshape(int, int);
-void myMouse(int, int, int,  int);
-void myKeyboard(unsigned char , int , int);
+void myMouse(int, int, int, int);
+void myKeyboard(unsigned char, int, int);
 void drawDot(GLIntPoint p);
-void drawSierpinski();
-
+void drawSierpinski(GLIntPoint*, int);
+const int HEIGHT = 480;
 int main(int argc, char** argv){
 
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-  glutInitWindowSize(640,480);
+  glutInitWindowSize(640,HEIGHT);
   glutInitWindowPosition(100,150);
-  glutCreateWindow("My first attempt!");
+  glutCreateWindow("Sierpinski");
 
   glutDisplayFunc(myDisplay);
   glutReshapeFunc(myReshape);
@@ -45,18 +45,15 @@ void myInit(){
 
 void myDisplay(){
   glClear(GL_COLOR_BUFFER_BIT);
-  glBegin(GL_POINTS);
-
-  drawSierpinski();
-
-  glEnd();
+  //glBegin(GL_POINTS);
+  //glEnd();
   glFlush();
 }
 
-void drawSierpinski(){
-  const int length = 3;
-  GLIntPoint points[length] = {{10,10},{300,10},{300,300}};
+void drawSierpinski(GLIntPoint* points, int length){
+
   int index = random() % length;
+
   GLIntPoint point = points[index];
 
   drawDot(point);
@@ -72,6 +69,8 @@ void drawDot(GLIntPoint p){
   glBegin(GL_POINTS);
   glVertex2i(p.x, p.y);
   glEnd();
+  glFlush();
+
 }
 
 void myReshape(int i, int j){
@@ -80,6 +79,22 @@ void myReshape(int i, int j){
 
 void myMouse(int button, int state, int x, int y){
 
+  const int size = 3;
+  static int clickCount = 0;
+  static GLIntPoint points[size];
+  
+  if(button == GLUT_LEFT_BUTTON && 
+     state == GLUT_DOWN &&
+     clickCount < size){
+    
+    points[clickCount].x = x;
+    points[clickCount].y = HEIGHT - y;
+    drawDot(points[clickCount]);
+    clickCount++;
+    if(clickCount == size){
+      drawSierpinski(points,size);
+    }
+  }
 }
 
 void myKeyboard(unsigned char c, int i, int j){

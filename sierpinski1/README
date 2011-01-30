@@ -1,0 +1,5 @@
+This is a simple fractal drawn with dots.
+
+--BUILD--
+Compile on OSX with the following command:
+g++ -framework GLUT -framework OpenGl -o sierpinski sierpinski.cpp

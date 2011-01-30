@@ -2,6 +2,3 @@ These are simple OpenGL demos.
 
 I'm building on OSX and not doing any cross platform stuff.
 
---BUILD--
-Compile on OSX with the following command:
-g++ -framework GLUT -framework OpenGl -o sierpinski sierpinski.cpp
