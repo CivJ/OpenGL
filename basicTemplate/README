@@ -1,0 +1,5 @@
+This is a skeleton file that is convenient for creating a simple 2d demo.
+
+--BUILD--
+Compile on OSX with the following command:
+g++ -framework GLUT -framework OpenGl -o template template.cpp
